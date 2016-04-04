@@ -5,6 +5,17 @@
 <link rel="shortcut icon" href="" type="image/x-icon" />
 <script charset="utf-8" src="script/jquery-1.12.1.js"></script>
 <script charset="utf-8" src="script/PeA-index.js"></script>
+<script>$(function(){
+
+
+var pea =new jQuery.PeAIndex(3);
+pea.addPrefix=true;
+pea.prefix =pea.prefixTpl.default;
+pea.index();
+
+// open().document.write(pea.indexHtml);
+
+});</script>
 <title>创建索引插件</title>
 </head>
 <body>
