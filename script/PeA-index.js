@@ -9,38 +9,42 @@
 // +----------------------------------------------------------------------
 
 (function(){
-    /**
-     *
-     * @param tierNum
-     * @constructor
-     */
     jQuery.PeAIndex =function(tierNum){
+        //要使用的生成标题前缀的函数
         this.prefix      =new Function();
+        //要参与索引的元素
         this.indexElt    =new Array();
+        //是否添加标题前缀
         this.addPrefix   =new Boolean();
+        //要使用的生成TOC的函数
         this.tpl         =new Function();
+        //生成的TOC的HTML
         this.indexHtml   =new String();
         //调用构造方法
         this.__construct.apply(this ,arguments);
     };
     jQuery.PeAIndex.prototype ={
+        //软件版本
         "varsion"        :"1.0.0",
+        //开始索引
         "index"          :new Function(),
+        //默认使用的生成TOC的函数
+        "createDefaultIndexHtml":new Function(),
+        "prefixTpl"      :{
+            //默认使用的生成标题前缀的函数
+            "default" :function(){},
+            //另一种生成标题前缀的函数
+            "zhTier"  :function(){}
+        },
+        //系统方法
         "getIndexPrefix" :new Function(),
         "getIndexHtml"   :new Function(),
-        "defaultPrefix"  :new Array(),
-        "letterPrefix"   :new Array(),
-        "numberPrefix"   :new Array(),
-        "prefixTpl"      :{
-            "default" :function(){},
-            "zhTier"  :function(){}
-        }
     };
     //添加标识符
     window.PeA_nut =window.PeA_nut ||[];
     window.PeA_nut.push({"PeA-index":jQuery.PeAIndex["varsion"]});
 })();
-//PeAIndex对象
+//PeA-index对象具体初始值
 jQuery.PeAIndex.prototype['__construct'] =function(tierNum){
     //标题前缀
     this.prefix =this.prefixTpl.default;
@@ -67,22 +71,26 @@ jQuery.PeAIndex.prototype['__construct'] =function(tierNum){
         return arr;
     })();
 };
-jQuery.PeAIndex.prototype.prefixTpl.default =function($elt){
-    var reMsg =[];
-    for (var i = 0; i < 1+ +$elt.attr("PeA-index"); i++) {
-        reMsg.push(this.indexNum[i]);
+//内置的生成标题前缀的函数
+jQuery.PeAIndex.prototype.prefixTpl={
+    "default"   :function($elt){
+        var reMsg =[];
+        for (var i = 0; i < 1+ +$elt.attr("PeA-index"); i++) {
+            reMsg.push(this.indexNum[i]);
+        };
+        reMsg[reMsg.length-1]++;
+        return reMsg.join(".")+" ";
+    },
+    "zhTier"    :function($elt){
+        var reMsg =this.prefixTpl.default.call(this ,$elt);
+        var zh =['一、','二、','三、','四、','五、','六、','七、','八、','九、','十、','十一、','十二、','十三、','十四、','十五、','十六、','十七、','十八、','十九、','二十、'];
+        if(parseInt(reMsg) == reMsg){
+            return zh[reMsg-1];
+        };
+        return reMsg;
     };
-    reMsg[reMsg.length-1]++;
-    return reMsg.join(".")+" ";
 };
-jQuery.PeAIndex.prototype.prefixTpl.zhTier =function($elt){
-    var reMsg =this.prefixTpl.default.call(this ,$elt);
-    var zh =['一、','二、','三、','四、','五、','六、','七、','八、','九、','十、','十一、','十二、','十三、','十四、','十五、','十六、','十七、','十八、','十九、','二十、'];
-    if(parseInt(reMsg) == reMsg){
-        return zh[reMsg-1];
-    };
-    return reMsg;
-};
+//开始索引
 jQuery.PeAIndex.prototype['index']=function(){
     var PeAIndex =this;
     //深度优先遍历文档树，获取排序元素的文档排列顺序
@@ -129,7 +137,9 @@ jQuery.PeAIndex.prototype['getIndexPrefix']=function($elt){
     return thisPrefix;
 };
 jQuery.PeAIndex.prototype['getIndexHtml']=function($elt){
+    //过滤HTML中的标签，仅保留各个标签innerHTML值
     var html =$elt.html();
     html =html.replace(/<[^<>]*>/g ,'');
+    //返回模板
     return '<div style="margin-left:'+$elt.attr("PeA-index")+'0px"><a href="#'+$elt.attr("id")+'">'+html+'</a></div>';
 };
