@@ -25,7 +25,7 @@
     };
     jQuery.PeAIndex.prototype ={
         //软件版本
-        "varsion"        :"1.0.0",
+        "varsion"        :"1.0.0b",
         //开始索引
         "index"          :new Function(),
         //默认使用的生成TOC的函数
@@ -79,6 +79,8 @@ jQuery.PeAIndex.prototype.prefixTpl={
             reMsg.push(this.indexNum[i]);
         };
         reMsg[reMsg.length-1]++;
+        //若前导数字仅一个曾经，加一个.
+        if(reMsg.length ==1) reMsg.push('');
         return reMsg.join(".")+" ";
     },
     "zhTier"    :function($elt){
