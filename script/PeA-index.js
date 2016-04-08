@@ -88,7 +88,7 @@ jQuery.PeAIndex.prototype.prefixTpl={
             return zh[reMsg-1];
         };
         return reMsg;
-    };
+    },
 };
 //开始索引
 jQuery.PeAIndex.prototype['index']=function(){
