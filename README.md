@@ -1,3 +1,7 @@
+# 插件链接
+
+Github: https://github.com/pea3nut/PeA-index
+
 # 插件简介
 
 PeA-index可以帮助您快速的索引网页中的某些元素，添加前导数字并生成一个锚点导航栏。
@@ -12,7 +16,7 @@ PeA-index创建的锚点导航还可以十分友好的配合[PeA-target](https:/
 
 PeA-index是一个jQuery插件，所以首先您需要在引入PeA-index之前引入jQuery库，然后下载PeA-index源码，引入您的项目。
 
-	<script charset="utf-8" src="script/PeA-target.js"></script>
+	<script charset="utf-8" src="script/PeA-index.js"></script>
 
 无需更多配置，就可以在项目中使用PeA-index了
 
@@ -25,7 +29,7 @@ PeA-index是一个jQuery插件，所以首先您需要在引入PeA-index之前�
 然后设置是否启用添加标题前缀，以及前缀模板
 
 	pea.addPrefix=true;
-	pea.prefix =jQuery.PeAIndex.prefixTpl.zhTier;
+	pea.prefix =pea.prefixTpl.zhTier;
 
 PeA-index默认提供2套前缀模板
 
