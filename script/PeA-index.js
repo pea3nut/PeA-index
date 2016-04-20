@@ -143,5 +143,5 @@ jQuery.PeAIndex.prototype['getIndexHtml']=function($elt){
     var html =$elt.html();
     html =html.replace(/<[^<>]*>/g ,'');
     //返回模板
-    return '<div style="margin-left:'+$elt.attr("PeA-index")+'0px"><a href="#'+$elt.attr("id")+'">'+html+'</a></div>';
+    return '<div style="margin-left:'+$elt.attr("PeA-index")+'0px"><a target="_self" href="#'+$elt.attr("id")+'">'+html+'</a></div>';
 };
